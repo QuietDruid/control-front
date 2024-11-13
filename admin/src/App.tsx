@@ -11,6 +11,9 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import DefaultLayout from './layout/DefaultLayout';
+import ECommerce from './pages/Dashboard/ECommerce';
+import Overview from './pages/Dashboard/Overview'; 
+
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,7 +37,7 @@ function App() {
           element={
             <>
               <PageTitle title="NestingDoll" />
-              <SignIn />
+              <Overview />
             </>
           }
         />
@@ -42,8 +45,26 @@ function App() {
           path="/profile"
           element={
             <>
-              <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Profile" />
               <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <PageTitle title="Dashboard" />
+              <Overview />
+            </>
+          }
+        />
+        <Route
+          path="/ecommerce"
+          element={
+            <>
+              <PageTitle title="Forms" />
+              <ECommerce />
             </>
           }
         />
@@ -51,7 +72,7 @@ function App() {
           path="/forms/form-elements"
           element={
             <>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Elements" />
               <FormElements />
             </>
           }
@@ -60,7 +81,7 @@ function App() {
           path="/forms/form-layout"
           element={
             <>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Layout" />
               <FormLayout />
             </>
           }
@@ -69,7 +90,7 @@ function App() {
           path="/tables"
           element={
             <>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Tables" />
               <Tables />
             </>
           }
@@ -78,7 +99,7 @@ function App() {
           path="/settings"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Settings" />
               <Settings />
             </>
           }
@@ -87,7 +108,7 @@ function App() {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signin" />
               <SignIn />
             </>
           }
@@ -96,7 +117,7 @@ function App() {
           path="/auth/signup"
           element={
             <>
-              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signup" />
               <SignUp />
             </>
           }

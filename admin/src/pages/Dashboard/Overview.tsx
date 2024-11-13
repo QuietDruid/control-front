@@ -1,17 +1,13 @@
 import React from 'react';
 import CardDataStats from '../../components/CardDataStats';
-import ChartOne from '../../components/Charts/ChartOne';
-import ChartThree from '../../components/Charts/ChartThree';
-import ChartTwo from '../../components/Charts/ChartTwo';
-import ChatCard from '../../components/Chat/ChatCard';
-import MapOne from '../../components/Maps/MapOne';
+
 import TableOne from '../../components/Tables/TableOne';
 
-const ECommerce: React.FC = () => {
+const Overview: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Inactive Vms" total="20">
+        <CardDataStats title="Total Inactive VMs" total="$3.456K">
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -30,7 +26,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Active VMs" total="100">
+        <CardDataStats title="Total Active VMs" total="$45,2K">
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -53,7 +49,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Number of VMs" total="120">
+        <CardDataStats title="Total Number of VMs" total="2,450">
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -72,7 +68,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456">
+        <CardDataStats title="Total Users" total="3,456">
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -98,17 +94,12 @@ const ECommerce: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
         <div className="col-span-12 xl:col-span-8">
           <TableOne />
         </div>
-        <ChatCard />
       </div>
     </>
   );
 };
 
-export default ECommerce;
+export default Overview;
