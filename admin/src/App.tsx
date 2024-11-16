@@ -13,6 +13,7 @@ import Tables from './pages/Tables';
 import DefaultLayout from './layout/DefaultLayout';
 import ECommerce from './pages/Dashboard/ECommerce';
 import Overview from './pages/Dashboard/Overview'; 
+import CreateAClass from './pages/Actions/CreateAClass';
 
 
 function App() {
@@ -101,6 +102,15 @@ function App() {
             <>
               <PageTitle title="Settings" />
               <Settings />
+            </>
+          }
+        />
+        <Route
+          path="/createclass"
+          element={
+            <>
+              <PageTitle title="Create A Class" />
+              <CreateAClass />
             </>
           }
         />

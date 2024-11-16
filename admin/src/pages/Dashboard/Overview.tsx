@@ -1,13 +1,13 @@
 import React from 'react';
 import CardDataStats from '../../components/CardDataStats';
+import Classes from '../../components/Tables/Classes';
 
-import TableOne from '../../components/Tables/TableOne';
 
 const Overview: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Inactive VMs" total="$3.456K">
+        <CardDataStats title="Total Inactive VMs" total="3,456">
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -26,7 +26,7 @@ const Overview: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Active VMs" total="$45,2K">
+        <CardDataStats title="Total Active VMs" total="4,252">
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -95,7 +95,7 @@ const Overview: React.FC = () => {
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+          <Classes />
         </div>
       </div>
     </>
