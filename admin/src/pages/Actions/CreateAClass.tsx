@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
 import { Upload } from 'lucide-react';
 
 const CreateAClass = () => {
@@ -16,6 +16,7 @@ const CreateAClass = () => {
     { value: 'm1', label: 'M1 (1 vCPU, 2GB RAM)', specs: { vcpu: 1, ram: 2 } },
     { value: 'm2', label: 'M2 (2 vCPU, 4GB RAM)', specs: { vcpu: 2, ram: 4 } },
     { value: 'm3', label: 'M3 (4 vCPU, 8GB RAM)', specs: { vcpu: 4, ram: 8 } },
+    { value: 'm4', label: 'M4 (8 vCPU, 16GB RAM)', specs: { vcpu: 8, ram: 16 } }
   ];
 
   // State management
@@ -27,7 +28,7 @@ const CreateAClass = () => {
   const fileInputRef = useRef(null);
 
   // Handle CSV file upload
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
@@ -40,9 +41,8 @@ const CreateAClass = () => {
       
       reader.onload = (e) => {
         try {
-          const text = e.target?.result;
-          if (typeof text === 'string') {
-            const rows = text.split('\n');
+          const text = e.target.result;
+          const rows = text.split('\n');
           const parsedStudents = rows
             .filter(row => row.trim()) // Remove empty rows
             .map(row => {
@@ -51,8 +51,7 @@ const CreateAClass = () => {
               if (!email.includes('@')) throw new Error('Invalid email format');
               return { name, email };
             });
-            setStudents(parsedStudents);
-          }
+
           setStudents(parsedStudents);
           setError('');
         } catch (err) {

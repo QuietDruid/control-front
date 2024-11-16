@@ -5,13 +5,11 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
-import FormElements from './pages/Form/FormElements';
-import FormLayout from './pages/Form/FormLayout';
-import Profile from './pages/Profile';
+
 import Settings from './pages/Settings';
-import Tables from './pages/Tables';
+
 import DefaultLayout from './layout/DefaultLayout';
-import ECommerce from './pages/Dashboard/ECommerce';
+
 import Overview from './pages/Dashboard/Overview'; 
 import CreateAClass from './pages/Actions/CreateAClass';
 
@@ -43,15 +41,6 @@ function App() {
           }
         />
         <Route
-          path="/profile"
-          element={
-            <>
-              <PageTitle title="Profile" />
-              <Profile />
-            </>
-          }
-        />
-        <Route
           path="/dashboard"
           element={
             <>
@@ -60,42 +49,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/ecommerce"
-          element={
-            <>
-              <PageTitle title="Forms" />
-              <ECommerce />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-elements"
-          element={
-            <>
-              <PageTitle title="Form Elements" />
-              <FormElements />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-layout"
-          element={
-            <>
-              <PageTitle title="Form Layout" />
-              <FormLayout />
-            </>
-          }
-        />
-        <Route
-          path="/tables"
-          element={
-            <>
-              <PageTitle title="Tables" />
-              <Tables />
-            </>
-          }
-        />
+        
         <Route
           path="/settings"
           element={
