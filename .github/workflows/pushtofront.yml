@@ -1,0 +1,66 @@
+name: Build and Deploy Vite App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: front-runner
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      # First copy to a temporary location where our user has access
+      - name: Deploy to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "dist/"
+          target: "/home/${{ secrets.USERNAME }}/temp_deploy"
+          strip_components: 1
+          overwrite: true
+
+      # Then use sudo to move files to final location and set permissions
+      - name: Move files and set permissions
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Create directory if it doesn't exist
+            # sudo mkdir -p /public
+            
+            # Copy files from temporary location to final destination
+            sudo cp -r /home/${{ secrets.USERNAME }}/temp_deploy/* /public/
+            
+            # Set proper ownership (assuming nginx user and group)
+            # sudo chown -R www-data:www-data /public
+            
+            # Set proper permissions
+            # sudo chmod -R 755 /public
+            
+            # Clean up temporary directory
+            rm -rf /home/${{ secrets.USERNAME }}/temp_deploy
