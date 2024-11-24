@@ -4,7 +4,6 @@ import { Button } from '../../components/ui/Button';
 import { Upload } from 'lucide-react';
 
 const CreateAClass = () => {
-  // Server configuration options
   const ubuntuVersions = [
     { value: '18.04', label: 'Ubuntu 18.04 LTS' },
     { value: '20.04', label: 'Ubuntu 20.04 LTS' },
@@ -19,7 +18,8 @@ const CreateAClass = () => {
     { value: 'm4', label: 'M4 (8 vCPU, 16GB RAM)', specs: { vcpu: 8, ram: 16 } }
   ];
 
-  // State management
+  // Added className state
+  const [className, setClassName] = useState('');
   const [selectedVersion, setSelectedVersion] = useState('');
   const [selectedVMType, setSelectedVMType] = useState('');
   const [students, setStudents] = useState([]);
@@ -27,7 +27,6 @@ const CreateAClass = () => {
   const [error, setError] = useState('');
   const fileInputRef = useRef(null);
 
-  // Handle CSV file upload
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -44,7 +43,7 @@ const CreateAClass = () => {
           const text = e.target.result;
           const rows = text.split('\n');
           const parsedStudents = rows
-            .filter(row => row.trim()) // Remove empty rows
+            .filter(row => row.trim())
             .map(row => {
               const [name, email] = row.split(',').map(item => item.trim());
               if (!name || !email) throw new Error('Invalid CSV format');
@@ -68,19 +67,42 @@ const CreateAClass = () => {
     }
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!className.trim()) {
+      setError('Please enter a class name');
+      return;
+    }
     if (students.length === 0) {
       setError('Please upload a class roster CSV file');
       return;
     }
     
-    console.log({
-      ubuntuVersion: selectedVersion,
-      vmType: selectedVMType,
-      roster: students
-    });
+    try {
+      const response = await fetch('http://localhost:8000/api/classes/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          class_name: className,
+          ubuntu_version: selectedVersion,
+          vm_type: selectedVMType,
+          roster: students
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create class');
+      }
+      
+      const data = await response.json();
+      // Handle success (e.g., show success message, redirect, etc.)
+      console.log('Class created:', data);
+      
+    } catch (error) {
+      setError('Failed to create class: ' + error.message);
+    }
   };
 
   return (
@@ -91,6 +113,22 @@ const CreateAClass = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Class Name Input - New Section */}
+            <div className="space-y-2">
+              <label htmlFor="className" className="block text-sm font-medium">
+                Class Name
+              </label>
+              <input
+                id="className"
+                type="text"
+                value={className}
+                onChange={(e) => setClassName(e.target.value)}
+                className="w-full p-2 border rounded-md"
+                placeholder="Enter class name"
+                required
+              />
+            </div>
+
             {/* Ubuntu Version Selection */}
             <div className="space-y-2">
               <label className="block text-sm font-medium">Ubuntu Version</label>
@@ -210,7 +248,7 @@ const CreateAClass = () => {
               <Button 
                 type="submit"
                 className="px-6"
-                disabled={!selectedVersion || !selectedVMType || students.length === 0}
+                disabled={!className.trim() || !selectedVersion || !selectedVMType || students.length === 0}
               >
                 Send Configuration
               </Button>
