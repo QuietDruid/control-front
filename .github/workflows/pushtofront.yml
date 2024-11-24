@@ -18,7 +18,6 @@ jobs:
 
       - name: moving to the project directory
         run: |
-          cd git-repo/admin
           ls -la
           pwd
 
