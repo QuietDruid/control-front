@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/"
+          source: "./admin/dist/"
           target: "/home/${{ secrets.USERNAME }}/temp_deploy"
           strip_components: 1
           overwrite: true
@@ -52,7 +52,7 @@ jobs:
             # sudo mkdir -p /public
             
             # Copy files from temporary location to final destination
-            sudo cp -r /home/${{ secrets.USERNAME }}/temp_deploy/* /public/
+            # sudo cp -r /home/${{ secrets.USERNAME }}/temp_deploy/* /public/
             
             # Set proper ownership (assuming nginx user and group)
             # sudo chown -R www-data:www-data /public
@@ -61,4 +61,6 @@ jobs:
             # sudo chmod -R 755 /public
             
             # Clean up temporary directory
-            rm -rf /home/${{ secrets.USERNAME }}/temp_deploy
+            # rm -rf /home/${{ secrets.USERNAME }}/temp_deploy
+
+            echo "Deployment complete"
