@@ -17,9 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: moving to the project directory
-        run: |
-          ls -la
-          pwd
+        run: cd ./admin
 
       - name: Install dependencies
         run: npm ci
