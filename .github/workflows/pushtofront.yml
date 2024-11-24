@@ -11,10 +11,16 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: moving to the project directory
+        run: |
+        cd git-repo/admin
+        ls -la
+        pwd
 
       - name: Install dependencies
         run: npm ci
