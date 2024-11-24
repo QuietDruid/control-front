@@ -52,7 +52,7 @@ jobs:
             # sudo mkdir -p /public
             
             # Copy files from temporary location to final destination
-            sudo cp -r /home/${{ secrets.USERNAME }}/temp_deploy/* /public/
+            sudo cp -r /home/${{ secrets.USERNAME }}/temp_deploy/admin/dist/* /public/
             
             # Set proper ownership (assuming nginx user and group)
             # sudo chown -R www-data:www-data /public
