@@ -1,8 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { useState } from 'react';
+import { useAuth } from '../../auth/AuthContext';
 
 const SignIn: React.FC = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { login } = useAuth();
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setError('');
+  
+      const success = await login(username, password);
+      if (success) {
+        const from = location.state?.from?.pathname || '/';
+        navigate(from, { replace: true });
+      } else {
+        setError('Invalid username or password');
+      }
+    };
+
+
   return (
     <>
       <Breadcrumb pageName="Sign In" />
@@ -14,7 +37,7 @@ const SignIn: React.FC = () => {
                 Sign In to NestingDoll
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
@@ -22,7 +45,10 @@ const SignIn: React.FC = () => {
                   <div className="relative">
                     <input
                       type="email"
+                      required
                       placeholder="Enter your email"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -53,8 +79,11 @@ const SignIn: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      required
                       placeholder="6+ Characters, 1 Capital letter"
+                      value={password}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -80,6 +109,10 @@ const SignIn: React.FC = () => {
                     </span>
                   </div>
                 </div>
+
+                {error && (
+                  <div className="text-red-500 text-sm text-center">{error}</div>
+                )}
 
                 <div className="mb-5">
                   <input
