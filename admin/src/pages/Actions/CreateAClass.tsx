@@ -79,7 +79,7 @@ const CreateAClass = () => {
     }
     
     try {
-      const response = await fetch('http://localhost:8000/api/classes/', {
+      const response = await fetch('http://10.200.20.51:80/api/classes/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
