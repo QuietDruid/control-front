@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch('http://10.200.20.51:80/api/token/', {
+      const response = await fetch('https://10.200.20.51:80/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!refresh) return false;
 
     try {
-      const response = await fetch('http://10.200.20.51:80/api/token/refresh/', {
+      const response = await fetch('https://10.200.20.51:80/api/token/refresh/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
