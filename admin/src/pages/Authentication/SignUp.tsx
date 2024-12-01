@@ -46,7 +46,7 @@ const SignUp: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/signup/', {
+      const response = await fetch('http://10.200.20.51:80/api/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
