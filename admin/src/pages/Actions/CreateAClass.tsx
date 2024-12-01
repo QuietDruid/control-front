@@ -2,8 +2,12 @@ import { useState, useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Upload } from 'lucide-react';
+import { useAuth } from '../../auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAClass = () => {
+  const navigate = useNavigate();
+  const { refreshToken } = useAuth();
   const ubuntuVersions = [
     { value: '18.04', label: 'Ubuntu 18.04 LTS' },
     { value: '20.04', label: 'Ubuntu 20.04 LTS' },
@@ -79,10 +83,12 @@ const CreateAClass = () => {
     }
     
     try {
+      const accessToken = localStorage.getItem('accessToken');
       const response = await fetch('http://10.200.20.51:80/api/classes/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           class_name: className,
@@ -91,6 +97,19 @@ const CreateAClass = () => {
           roster: students
         })
       });
+
+      if (response.status === 401) {
+        // Token expired, try to refresh
+        const refreshSuccess = await refreshToken();
+        if (refreshSuccess) {
+          // Retry the request with new token
+          return handleSubmit(e);
+        } else {
+          // Redirect to login if refresh failed
+          navigate('/login');
+          return;
+        }
+      }
       
       if (!response.ok) {
         throw new Error('Failed to create class');
