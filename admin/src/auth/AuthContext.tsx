@@ -38,9 +38,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-        agent: new https.Agent({  
-          rejectUnauthorized: false
-        })
       });
 
       if (!response.ok) {
