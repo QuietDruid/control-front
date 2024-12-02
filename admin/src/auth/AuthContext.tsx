@@ -38,10 +38,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
+        agent: new https.Agent({  
+          rejectUnauthorized: false
+        })
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+        const errorText = await response.text();
+        console.error('Login failed:', response.status, errorText);
+        throw new Error(`Login failed: ${response.status}`);
       }
 
       const data = await response.json();
