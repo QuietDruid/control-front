@@ -21,7 +21,7 @@ const SignIn: React.FC = () => {
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       } else {
-        setError('Invalid username or password');
+        setError('Invalid email or password');
       }
     };
 

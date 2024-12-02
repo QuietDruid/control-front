@@ -30,14 +30,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (username: string, password: string): Promise<boolean> => {
+  // const login = async (username: string, password: string): Promise<boolean> => {
+  //   try {
+  //     const response = await fetch('https://backend.rodriguezjr.org:443/api/token/', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ username, password }),
+  //     });
+
+  //     if (!response.ok) {
+  //       const errorText = await response.text();
+  //       console.error('Login failed:', response.status, errorText);
+  //       throw new Error(`Login failed: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+  //     localStorage.setItem('accessToken', data.access);
+  //     localStorage.setItem('refreshToken', data.refresh);
+  //     setUser({ token: data.access });
+  //     return true;
+  //   } catch (error) {
+  //     console.error('Login error:', error);
+  //     return false;
+  //   }
+  // };
+
+  
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch('https://backend.rodriguezjr.org:443/api/token/', {
+      const response = await fetch('https://backend.rodriguezjr.org:443/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {

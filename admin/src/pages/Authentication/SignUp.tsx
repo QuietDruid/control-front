@@ -65,7 +65,7 @@ const SignUp: React.FC = () => {
       }
 
       // If signup is successful, navigate to login
-      navigate('/login');
+      navigate('/auth/signin');
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unknown error occurred');
       console.error('Signup error:', error);
