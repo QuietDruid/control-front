@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch('https://10.200.20.51:443/api/token/', {
+      const response = await fetch('https://backend.rodriguezjr.org:443/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!refresh) return false;
 
     try {
-      const response = await fetch('https://10.200.20.51:443/api/token/refresh/', {
+      const response = await fetch('https://backend.rodriguezjr.org:443/api/token/refresh/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
